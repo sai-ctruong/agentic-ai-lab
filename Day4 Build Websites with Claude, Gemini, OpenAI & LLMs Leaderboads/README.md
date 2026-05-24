@@ -14,15 +14,7 @@ Notebook nay minh hoa cach su dung cac LLM API nhu OpenAI, Google Gemini va Anth
 
 Xem demo landing page tren GitHub Pages:
 
-[Live Demo - Gemini Landing Page](https://sai-ctruong.github.io/agentic-ai-lab/Day4%20Build%20Websites%20with%20Claude%2C%20Gemini%2C%20OpenAI%20%26%20LLMs%20Leaderboads/gemini_landing_page.html)
-
-Neu link chua hien thi, hay bat GitHub Pages trong repository:
-
-1. Vao `Settings` cua repo tren GitHub
-2. Chon `Pages`
-3. Trong `Build and deployment`, chon source la `Deploy from a branch`
-4. Chon branch `main` va folder `/root`
-5. Bam `Save`, doi GitHub build xong roi mo lai link demo
+[Live Demo - Gemini Landing Page](https://curious-pudding-c7eae5.netlify.app/)
 
 ## File web HTML
 
