@@ -1,0 +1,6 @@
+anthropic
+google-generativeai
+ipython
+jupyter
+openai
+python-dotenv
