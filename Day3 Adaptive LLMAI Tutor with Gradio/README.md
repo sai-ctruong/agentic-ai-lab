@@ -2,6 +2,8 @@
 
 Notebook này minh họa cách xây dựng một AI Tutor tương tác bằng Gemini API và Gradio. Người dùng có thể nhập câu hỏi, nhận câu trả lời từ AI, xem phản hồi dạng streaming và điều chỉnh mức độ giải thích bằng slider.
 
+![Advanced AI Tutor interface](assets/advanced-ai-tutor-preview.svg)
+
 ## Nội dung
 
 - Đọc API key từ file `.env`
@@ -16,6 +18,8 @@ Notebook này minh họa cách xây dựng một AI Tutor tương tác bằng Ge
 
 ```text
 Day3 Adaptive LLMAI Tutor with Gradio/
+├── assets/
+│   └── advanced-ai-tutor-preview.svg
 ├── LLMAI-Tutor-with-Gradio.ipynb
 ├── requirements.txt
 └── README.md
