@@ -1,96 +1,94 @@
-# Day 2 - AI Calorie Tracker với Gemini Vision
+# Day 2 - AI Calorie Tracker with Gemini Vision
 
-Notebook này minh họa cách xây dựng một công cụ nhận diện món ăn và ước tính dinh dưỡng từ hình ảnh bằng Gemini Vision trong Python.
+This notebook builds a simple AI calorie tracker that analyzes a food image with Gemini Vision. It sends both an image and a prompt to Gemini, asks the model to identify the food, estimate nutrition information, and return a structured JSON-style result.
 
-## Nội dung
+## What This Project Covers
 
-- Đọc API key từ file `.env`
-- Cấu hình Gemini client với model `gemini-2.5-flash`
-- Mở và hiển thị ảnh món ăn bằng `Pillow`
-- Gửi ảnh kèm prompt đến Gemini Vision
-- Trả về mô tả món ăn, nguyên liệu, khoảng calories ước tính
-- Tạo prompt yêu cầu kết quả dinh dưỡng dạng JSON có cấu trúc
+- Loading `GEMINI_API_KEY` from `.env`
+- Configuring Gemini with `google-generativeai`
+- Opening and displaying a local food image with Pillow
+- Sending image-plus-text prompts to `gemini-2.5-flash`
+- Asking Gemini for a human-readable food description
+- Asking Gemini for structured nutrition output in JSON format
+- Parsing and displaying model output in a notebook-friendly way
 
-## Cấu trúc thư mục
+## Project Structure
 
 ```text
-Day2-AI-Calorie-Tracker/
-├── calories-tracker.ipynb
-├── food_image.jpg
-└── README.md
+Day2 Build an AI Calorie Tracker Usisng GeminiAI API (Vision)/
+|-- calories-tracker.ipynb
+|-- food_image.jpg
+|-- requirements.txt
+`-- README.md
 ```
 
-## Yêu cầu
+## Requirements
 
-- Python 3.12 hoặc mới hơn
-- Jupyter Notebook / VS Code Notebook
-- Gemini API key
-- Virtual environment `.venv` ở thư mục gốc project
+- Python 3.12 or newer
+- Jupyter Notebook, JupyterLab, or the VS Code notebook interface
+- A Google Gemini API key
+- A local image file named `food_image.jpg`
 
-## Cài đặt
+## Installation
 
-Từ thư mục gốc project, kích hoạt virtual environment:
+From the repository root, activate the virtual environment:
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
 ```
 
-Cài các thư viện cần thiết:
+Install the required packages:
 
 ```powershell
-uv pip install google-generativeai python-dotenv pillow ipython gradio
+pip install -r "Day2 Build an AI Calorie Tracker Usisng GeminiAI API (Vision)/requirements.txt"
 ```
 
-Nếu môi trường đã có `pip`, có thể dùng:
+With `uv`:
 
 ```powershell
-pip install google-generativeai python-dotenv pillow ipython gradio
+uv pip install --python .\.venv\Scripts\python.exe -r "Day2 Build an AI Calorie Tracker Usisng GeminiAI API (Vision)/requirements.txt"
 ```
 
-## Cấu hình môi trường
+## Environment Variables
 
-Tạo file `.env` ở thư mục gốc project:
+Create or update the repository-level `.env` file:
 
 ```env
 GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-Không commit file `.env` lên GitHub vì file này chứa API key.
+Do not commit `.env` to GitHub.
 
-## Cách chạy
+## How to Run
 
-1. Mở file `calories-tracker.ipynb`.
-2. Chọn kernel trỏ tới `.venv` của project.
-3. Đảm bảo file `food_image.jpg` nằm cùng thư mục với notebook.
-4. Chạy lần lượt các cell từ trên xuống dưới.
+1. Open `calories-tracker.ipynb`.
+2. Select the Python kernel that points to the repository `.venv`.
+3. Confirm that `food_image.jpg` is in the same folder as the notebook.
+4. Run the cells from top to bottom.
+5. Replace `food_image.jpg` with another food image if you want to test a different meal.
 
-## Luồng xử lý
+## Main Code Flow
 
 ```text
 food_image.jpg
-    ↓
-Pillow mở ảnh
-    ↓
-Gemini Vision phân tích hình ảnh
-    ↓
-Prompt 1: mô tả món ăn và calories
-    ↓
-Prompt 2: trả về thông tin dinh dưỡng dạng JSON
+  -> PIL.Image.open(...)
+  -> Gemini prompt with image input
+  -> food identification and calorie estimate
+  -> second prompt for structured nutrition JSON
+  -> parse and display result in the notebook
 ```
 
-## Ví dụ output
+## Output Format
 
-Kết quả mô tả ngắn:
+The notebook asks Gemini for information such as:
 
-```text
-Food: ...
-Description: ...
-Ingredients: ...
-Estimated calories: ...
-Nutrition: ...
-```
+- Food name
+- Serving description
+- Estimated calories
+- Fat, protein, and other nutrition values
+- Confidence level
 
-Kết quả JSON dinh dưỡng:
+Example structured shape:
 
 ```json
 {
@@ -103,8 +101,9 @@ Kết quả JSON dinh dưỡng:
 }
 ```
 
-## Lưu ý
+## Important Limitations
 
-- Kết quả calories và dinh dưỡng chỉ là ước tính từ hình ảnh, không thay thế thông tin dinh dưỡng chính xác.
-- Chất lượng ảnh, góc chụp và khẩu phần thực tế có thể làm thay đổi độ chính xác.
-- Package `google-generativeai` có thể có cảnh báo deprecated từ Google. Notebook hiện vẫn dùng được, nhưng project mới có thể cân nhắc SDK mới `google-genai`.
+- Nutrition values are estimates generated from an image, not verified measurements.
+- Portion size, lighting, image angle, hidden ingredients, and sauces can significantly affect accuracy.
+- This project is for learning and prototyping only. It should not be used as medical, dietary, or clinical advice.
+- The notebook currently uses the legacy `google-generativeai` package to match the course code.

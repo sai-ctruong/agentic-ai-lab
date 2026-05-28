@@ -1,118 +1,129 @@
-# Day 3 - Adaptive LLM AI Tutor với Gradio
+# Day 3 - Adaptive LLM AI Tutor with Gradio
 
-Notebook này minh họa cách xây dựng một AI Tutor tương tác bằng Gemini API và Gradio. Người dùng có thể nhập câu hỏi, nhận câu trả lời từ AI, xem phản hồi dạng streaming và điều chỉnh mức độ giải thích bằng slider.
+This notebook builds an interactive AI tutor using Gemini and Gradio. It starts with a simple notebook function, then adds a web interface, streaming responses, and a difficulty slider that changes how deeply the tutor explains a topic.
 
 ![Advanced AI Tutor interface](assets/advanced-ai-tutor-preview.svg)
 
-## Nội dung
+## What This Project Covers
 
-- Đọc API key từ file `.env`
-- Cấu hình Gemini client với model `gemini-2.5-flash`
-- Tạo hàm AI Tutor trả lời câu hỏi học tập
-- Hiển thị kết quả trong Jupyter Notebook bằng Markdown
-- Xây dựng giao diện Gradio cơ bản
-- Xây dựng giao diện Gradio có streaming response
-- Thêm slider để chọn mức độ giải thích từ đơn giản đến chuyên sâu
+- Loading `GEMINI_API_KEY` from `.env`
+- Configuring a Gemini client with `gemini-2.5-flash`
+- Creating a reusable AI tutor function
+- Displaying responses as Markdown in a notebook
+- Building a basic Gradio interface
+- Streaming model responses token by token
+- Adding an explanation-level slider for adaptive tutoring
 
-## Cấu trúc thư mục
+## Project Structure
 
 ```text
 Day3 Adaptive LLMAI Tutor with Gradio/
-├── assets/
-│   └── advanced-ai-tutor-preview.svg
-├── LLMAI-Tutor-with-Gradio.ipynb
-├── requirements.txt
-└── README.md
+|-- assets/
+|   `-- advanced-ai-tutor-preview.svg
+|-- LLMAI-Tutor-with-Gradio.ipynb
+|-- requirements.txt
+`-- README.md
 ```
 
-## Yêu cầu
+## Requirements
 
-- Python 3.12 hoặc mới hơn
-- Jupyter Notebook / VS Code Notebook
-- Gemini API key
-- Virtual environment `.venv` ở thư mục gốc project
+- Python 3.12 or newer
+- Jupyter Notebook, JupyterLab, or the VS Code notebook interface
+- A Google Gemini API key
+- A browser for opening the local Gradio app
 
-## Cài đặt
+## Installation
 
-Từ thư mục gốc project, kích hoạt virtual environment:
+From the repository root, activate the virtual environment:
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
 ```
 
-Cài các thư viện cần thiết:
-
-```powershell
-uv pip install -r "Day3 Adaptive LLMAI Tutor with Gradio/requirements.txt"
-```
-
-Nếu môi trường đã có `pip`, có thể dùng:
+Install the required packages:
 
 ```powershell
 pip install -r "Day3 Adaptive LLMAI Tutor with Gradio/requirements.txt"
 ```
 
-## Cấu hình môi trường
+With `uv`:
 
-Tạo file `.env` ở thư mục gốc project:
+```powershell
+uv pip install --python .\.venv\Scripts\python.exe -r "Day3 Adaptive LLMAI Tutor with Gradio/requirements.txt"
+```
+
+## Environment Variables
+
+Create or update the repository-level `.env` file:
 
 ```env
 GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-Không commit file `.env` lên GitHub vì file này chứa API key.
+Do not commit `.env` to GitHub.
 
-## Cách chạy
+## How to Run
 
-1. Mở file `LLMAI-Tutor-with-Gradio.ipynb`.
-2. Chọn kernel trỏ tới `.venv` của project.
-3. Chạy các cell cấu hình Gemini trước.
-4. Chạy cell định nghĩa hàm tutor.
-5. Chạy một trong các giao diện Gradio:
+1. Open `LLMAI-Tutor-with-Gradio.ipynb`.
+2. Select the Python kernel that points to the repository `.venv`.
+3. Run the Gemini setup cells first.
+4. Run the tutor function cells.
+5. Run one of the Gradio interface cells:
    - Simple AI Tutor
-   - AI Tutor with Streaming
-   - Advanced AI Tutor với slider chọn mức độ giải thích
+   - Streaming AI Tutor
+   - Advanced AI Tutor with explanation-level slider
 
-Khi Gradio chạy thành công, notebook sẽ hiển thị link local dạng:
+When Gradio starts successfully, it prints a local URL similar to:
 
 ```text
 http://127.0.0.1:7860
 ```
 
-Mở link đó trên trình duyệt để dùng app.
+Open that URL in a browser to use the tutor.
 
-## Public link với Gradio
+## Explanation Levels
 
-Nếu muốn tạo link public tạm thời, đổi:
+The advanced interface uses a slider from 1 to 5:
+
+```text
+1 - Explain like I am 5 years old
+2 - Explain like I am 10 years old
+3 - Explain like I am a high school student
+4 - Explain like I am a college student
+5 - Explain like I am an expert in the field
+```
+
+The selected value is inserted into the tutor prompt so the model can adapt its tone, depth, vocabulary, and examples.
+
+## Main Code Flow
+
+```text
+User question
+  -> Gradio textbox
+  -> tutor function
+  -> Gemini system prompt + user question
+  -> Gemini response
+  -> Markdown output or streamed output in Gradio
+```
+
+## Public Sharing
+
+For a temporary public Gradio link, change:
 
 ```python
 ai_tutor_interface_slider.launch()
 ```
 
-thành:
+to:
 
 ```python
 ai_tutor_interface_slider.launch(share=True)
 ```
 
-Khi dùng `share=True`, Gradio có thể tạo thư mục `.gradio/` để lưu file tạm như certificate. Thư mục này không cần commit lên GitHub.
+Gradio may create temporary local files when `share=True` is enabled. These files do not need to be committed.
 
-## Mức độ giải thích
+## Notes
 
-Notebook dùng slider từ 1 đến 5:
-
-```text
-1 - like I'm 5 years old
-2 - like I'm 10 years old
-3 - like a high school student
-4 - like a college student
-5 - like an expert in the field
-```
-
-Giá trị slider sẽ được đưa vào system prompt để Gemini điều chỉnh cách giải thích.
-
-## Lưu ý
-
-- Nếu thấy dòng `DEBUG: Using System Prompt: ...`, đó chỉ là log debug để kiểm tra prompt đang được dùng.
-- Có thể xóa hoặc comment dòng `print(...)` debug nếu muốn output sạch hơn.
-- Package `google-generativeai` có cảnh báo deprecated từ Google. Notebook hiện vẫn dùng được, nhưng project mới có thể cân nhắc SDK mới `google-genai`.
+- The notebook includes a debug print for the generated system prompt. You can remove or comment it out if you want cleaner output.
+- The tutor is a learning assistant, not a guaranteed source of truth. Always verify critical technical, medical, legal, or academic claims.
+- The notebook currently uses the legacy `google-generativeai` package to match the course code.

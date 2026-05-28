@@ -1,65 +1,120 @@
-# Day 4 - Build Websites with Claude, Gemini, OpenAI & LLMs Leaderboards
+# Day 4 - Build Websites with Claude, Gemini, OpenAI, and LLM Leaderboards
 
-Notebook nay minh hoa cach su dung cac LLM API nhu OpenAI, Google Gemini va Anthropic Claude de tao noi dung va build landing page bang HTML.
+This notebook compares multiple commercial LLM APIs and uses them to generate a complete static landing page. It configures OpenAI, Google Gemini, and Anthropic Claude clients, tests their responses on sample prompts, then asks each model to generate HTML for a startup landing page.
 
-## Noi dung chinh
+## What This Project Covers
 
-- Cau hinh API keys tu file `.env`
-- Goi thu nghiem cac model OpenAI, Gemini va Claude
-- So sanh ket qua sinh noi dung giua cac LLM
-- Tao landing page HTML bang Gemini
-- Luu ket qua thanh file web tinh co the mo truc tiep tren trinh duyet
+- Loading `OPENAI_API_KEY`, `GEMINI_API_KEY`, and `ANTHROPIC_API_KEY` from `.env`
+- Configuring OpenAI, Gemini, and Claude Python clients
+- Testing model behavior on reasoning and creative prompts
+- Building a shared landing-page generation prompt
+- Generating HTML with OpenAI `gpt-4o`
+- Generating HTML with Gemini `gemini-2.5-flash`
+- Generating HTML with Claude models
+- Saving generated HTML files locally
+- Opening the generated static HTML page in a browser
 
-## Demo website
-
-Xem demo landing page tren GitHub Pages:
-
-[Live Demo - Gemini Landing Page](https://curious-pudding-c7eae5.netlify.app/)
-
-## File web HTML
-
-Mo landing page da tao tai day:
-
-[gemini_landing_page.html](./gemini_landing_page.html)
-
-Neu link khong mo truc tiep trong IDE, hay mo file sau trong trinh duyet:
+## Project Structure
 
 ```text
-Day4 Build Websites with Claude, Gemini, OpenAI & LLMs Leaderboads/gemini_landing_page.html
+Day4 Build Websites with Claude, Gemini, OpenAI & LLMs Leaderboads/
+|-- Build-websites-LLMs-leaderboards.ipynb
+|-- gemini_landing_page.html
+|-- requirements.txt
+`-- README.md
 ```
 
-## Cai dat
+The notebook may also create additional generated files when the corresponding API calls succeed:
 
-Tu thu muc goc project, cai cac thu vien can thiet:
+```text
+openai_landing_page.html
+claude_landing_page.html
+```
 
-```bash
+These files are generated outputs and may not exist until you run the notebook cells.
+
+## Requirements
+
+- Python 3.12 or newer
+- Jupyter Notebook, JupyterLab, or the VS Code notebook interface
+- API keys for the providers you want to test:
+  - OpenAI
+  - Google Gemini
+  - Anthropic Claude
+
+You can run only the Gemini sections if you only have a Gemini key.
+
+## Installation
+
+From the repository root, activate the virtual environment:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Install the required packages:
+
+```powershell
 pip install -r "Day4 Build Websites with Claude, Gemini, OpenAI & LLMs Leaderboads/requirements.txt"
 ```
 
-Neu dung `uv` voi virtual environment `.venv`:
+With `uv`:
 
-```bash
-uv pip install --python .venv/Scripts/python.exe -r "Day4 Build Websites with Claude, Gemini, OpenAI & LLMs Leaderboads/requirements.txt"
+```powershell
+uv pip install --python .\.venv\Scripts\python.exe -r "Day4 Build Websites with Claude, Gemini, OpenAI & LLMs Leaderboads/requirements.txt"
 ```
 
-## Cau hinh `.env`
+## Environment Variables
 
-Tao hoac cap nhat file `.env` o thu muc goc project:
+Create or update the repository-level `.env` file:
 
 ```env
-OPENAI_API_KEY=your_openai_api_key
-GEMINI_API_KEY=your_gemini_api_key
-ANTHROPIC_API_KEY=your_anthropic_api_key
+OPENAI_API_KEY=your_openai_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
 ```
 
-Luu y: Neu OpenAI hoac Anthropic bao loi quota/credit, hay kiem tra billing cua tung nha cung cap. Notebook van co the chay phan Gemini neu `GEMINI_API_KEY` hop le.
+Do not commit `.env` to GitHub.
 
-## Chay notebook
+## How to Run
 
-Mo file notebook:
+1. Open `Build-websites-LLMs-leaderboards.ipynb`.
+2. Select the Python kernel that points to the repository `.venv`.
+3. Run the setup cell that loads API keys and configures clients.
+4. Run the prompt testing cells to compare model behavior.
+5. Run the landing-page generation cells for the providers you want to test.
+6. Open the generated `.html` files in a browser.
+
+## Generated Website
+
+The committed example output is:
+
+[gemini_landing_page.html](./gemini_landing_page.html)
+
+The notebook prompt asks the model to generate a static landing page for a fictional startup named `ConnectGenius`, an AI-powered CRM product.
+
+## Live Demo
+
+The generated landing page is also deployed here:
+
+[Live Demo - Gemini Landing Page](https://curious-pudding-c7eae5.netlify.app/)
+
+## Main Code Flow
 
 ```text
-Build-websites-LLMs-leaderboards.ipynb
+.env API keys
+  -> configure OpenAI, Gemini, and Claude clients
+  -> run comparison prompts
+  -> define one shared HTML generation prompt
+  -> call each provider
+  -> strip Markdown code fences if needed
+  -> save provider output as .html
+  -> open generated static page
 ```
 
-Sau khi cai dat requirements va cau hinh `.env`, restart kernel roi chay lai cac cell tu dau.
+## Notes
+
+- Provider APIs may fail if billing, quota, model access, or API keys are not configured correctly.
+- The notebook includes error handling for failed provider calls and can continue with the providers that are available.
+- Generated HTML is model output. Review it before publishing or reusing it in production.
+- The folder name contains the typo `Leaderboads`; paths in this README match the current repository name exactly.
